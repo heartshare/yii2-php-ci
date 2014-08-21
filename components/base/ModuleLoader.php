@@ -112,4 +112,14 @@ class ModuleLoader extends Component implements BootstrapInterface
         return [];
     }
 
+    public function installModule($module)
+    {
+
+    }
+
+    public function uninstallModule($module)
+    {
+
+    }
+
 }

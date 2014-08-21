@@ -14,14 +14,16 @@ class Module extends \yii\base\Module
     }
 
 
-    public function install()
+    public static function install()
     {
-
+        $command = '/usr/local/homebrew/bin/composer.phar '.\Yii::getAlias('@root')." require 'phploc/phploc=*'";
+        exec($command);
     }
 
-    public function uninstall()
+    public static  function uninstall()
     {
-
+        $command = '/usr/local/homebrew/bin/composer.phar '.\Yii::getAlias('@root')." remove 'phploc/phploc' ";
+        exec($command);
     }
 
     public static function moduleConfig()
