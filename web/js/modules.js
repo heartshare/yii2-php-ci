@@ -37,23 +37,28 @@ yii.modules = (function ($) {
     //模块开关
     var moduleSwitch = function (target){
         var $target = $(target);
+
+
         $target.click(function(){
             var $this = $(this);
             var url = $this.attr('data-action');
             var module = $this.attr('data-module');
             var disabled = $this.attr('data-param');
+
+            $this.html('').addClass('install-loading');
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 cache: false,
                 url: url,
                 data: {'module': module, 'disabled': disabled},
                 success: function (data) {
-                    _switchStatus(target, disabled);
+                    _switchStatus($this, disabled);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert('启用失败，请重请点击启用');
                 }
             }).always(function(){
+                $this.removeClass('install-loading');
 
             });
         });
@@ -62,10 +67,10 @@ yii.modules = (function ($) {
     var _switchStatus = function (target, status){
         switch (parseInt(status)){
             case 1:
-                target.text('启用').removeClass('label-default').addClass('label-success');
+                target.html('禁用').removeClass('label-success').addClass('label-default').attr('data-param',0);
                 break;
             case 0:
-                target.text('禁用').removeClass('label-success').addClass('label-default');
+                target.html('启用').removeClass('label-default').addClass('label-success').attr('data-param',1);
                 break;
         }
     };

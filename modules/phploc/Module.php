@@ -13,6 +13,17 @@ class Module extends \yii\base\Module
         // custom initialization code goes here
     }
 
+
+    public function install()
+    {
+
+    }
+
+    public function uninstall()
+    {
+
+    }
+
     public static function moduleConfig()
     {
         if (is_file(__DIR__.DIRECTORY_SEPARATOR.'config.php'))
