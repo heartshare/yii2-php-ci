@@ -36,6 +36,6 @@ CREATE TABLE `phpci_modules` (
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '安装日期',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新日期',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
