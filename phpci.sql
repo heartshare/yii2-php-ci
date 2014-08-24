@@ -11,7 +11,7 @@
  Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/20/2014 22:26:30 PM
+ Date: 08/24/2014 21:37:15 PM
 */
 
 SET NAMES utf8;
@@ -36,6 +36,32 @@ CREATE TABLE `phpci_modules` (
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '安装日期',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `phpci_modules_projects`
+-- ----------------------------
+DROP TABLE IF EXISTS `phpci_modules_projects`;
+CREATE TABLE `phpci_modules_projects` (
+  `project_id` int(10) NOT NULL,
+  `module_id` int(10) NOT NULL,
+  `config` text,
+  PRIMARY KEY (`project_id`,`module_id`),
+  KEY `module_id` (`module_id`),
+  CONSTRAINT `FK_MODULES_ID` FOREIGN KEY (`module_id`) REFERENCES `phpci_modules` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_PROJECTS_ID` FOREIGN KEY (`project_id`) REFERENCES `phpci_projects` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `phpci_projects`
+-- ----------------------------
+DROP TABLE IF EXISTS `phpci_projects`;
+CREATE TABLE `phpci_projects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_name` varchar(100) NOT NULL DEFAULT '' COMMENT '项目名称',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
