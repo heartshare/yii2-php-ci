@@ -5,6 +5,7 @@ namespace app\components\base;
 use app\models\Modules;
 use yii\base\component;
 use yii\base\BootstrapInterface;
+use yii\base\InvalidParamException;
 
 class ModuleLoader extends Component implements BootstrapInterface
 {
@@ -114,12 +115,18 @@ class ModuleLoader extends Component implements BootstrapInterface
 
     public function installModule($module)
     {
-
+        $class = $this->getModuleClass($module);
+        if(!$class)
+            throw new InvalidParamException($module."'s Modules.php not exist");
+        return $class::install();
     }
 
     public function uninstallModule($module)
     {
-
+        $class = $this->getModuleClass($module);
+        if(!$class)
+            throw new \HttpInvalidParamException($module."'s Modules.php not exist");
+        return $class::uninstall();
     }
 
 }

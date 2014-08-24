@@ -39,9 +39,8 @@ class ModulesController extends Controller{
         $module = \Yii::$app->request->post('module',null);
         $moduleConfig = \Yii::$app->moduleLoader->getModuleConfig($module);
         $moduleModel = new Modules();
-
         if($moduleModel->load($moduleConfig,'') && $moduleModel->validate()){
-            $moduleModel->save(false);
+           echo  $moduleModel->install();
         }
 
     }

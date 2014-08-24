@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\models\query\ModulesQuery;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\Json;
 
@@ -96,5 +97,28 @@ class Modules extends \yii\db\ActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function install()
+    {
+        $transaction = self::getDb()->beginTransaction();
+        try{
+            if ($this->save(false) && Yii::$app->moduleLoader->installModule($this->module)){
+                Yii::trace($this->module.'安装成功', 'application.ModuleInstall');
+                $transaction->commit();
+                return true;
+            }else{
+                $transaction->rollBack();
+                return '安装失败()';
+            }
+        }catch (InvalidParamException $e){
+            $transaction->rollBack();
+            Yii::error($e->getMessage(),'application.ModuleInstall');
+            return $e->getMessage();
+        }catch(\Exception $e){
+            $transaction->rollBack();
+            Yii::error($e->getMessage(),'application.ModuleInstall');
+            return $e->getMessage();
+        }
     }
 }
