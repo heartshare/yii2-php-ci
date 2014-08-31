@@ -8,7 +8,7 @@ class DefaultController extends Controller
 {
     public function actionIndex()
     {
-        sleep(1);
+
         return $this->renderAjax('index');
     }
 }

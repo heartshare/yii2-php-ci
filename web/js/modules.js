@@ -1,5 +1,7 @@
 yii.modules = (function ($) {
 
+    var be = 'body';
+
     //模块安装
     var moduleInstall = function (target){
         var $target = $(target);
@@ -35,8 +37,7 @@ yii.modules = (function ($) {
 
     //模块开关
     var moduleSwitch = function (target){
-        var $target = $(target);
-        $target.click(function(){
+        $(be).on('click',target,function(){
             var $this = $(this);
             var url = $this.attr('data-action');
             var module = $this.attr('data-module');
@@ -62,9 +63,8 @@ yii.modules = (function ($) {
         });
     };
 
-    var moduleUninstall = function (target, c){
-        var $target = $(target);
-        $target.click(function(){
+    var moduleUninstall = function (target){
+        $(be).on('click',target,function(){
             var $this = $(this);
             var url = $this.attr('data-action');
             var module = $this.attr('data-module');
@@ -110,13 +110,15 @@ yii.modules = (function ($) {
             moduleInstall(target);
         },
 
-        moduleSwitch : function (target)
+        moduleSwitch : function (target, bindElement)
         {
+            be = bindElement?bindElement:be;
             moduleSwitch(target);
         },
 
-        moduleUninstall : function (target,c){
-            moduleUninstall(target, c);
+        moduleUninstall : function (target, bindElement){
+            be = bindElement?bindElement:be;
+            moduleUninstall(target);
         }
     }
 })(jQuery)
