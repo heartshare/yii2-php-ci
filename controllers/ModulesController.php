@@ -45,6 +45,14 @@ class ModulesController extends Controller{
 
     }
 
+    public function actionUninstall()
+    {
+        //TODO 增加返回值及错误返回
+        $moduleId = \Yii::$app->request->post('module',null);
+        if(Modules::findOne((int)$moduleId)->uninstall())
+            return true;
+    }
+
     public function actionSwitch($module,$disabled = 1)
     {
         //TODO 增加返回值及错误返回
@@ -53,13 +61,5 @@ class ModulesController extends Controller{
             $moduleModel->disabled = (int) $disabled;
             $moduleModel->update(false,['disabled']);
         }
-    }
-
-    public function actionUninstall()
-    {
-        //TODO 增加返回值及错误返回
-        $moduleId = \Yii::$app->request->get('moduleId',null);
-        if(Modules::findOne((int)$moduleId)->delete())
-            return true;
     }
 } 

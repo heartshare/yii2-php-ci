@@ -199,6 +199,6 @@ body {
 
 /*****modules css*****/
 .module-install{display: inline-block;width: 60px;height: 25px;}
-.moduleSwitch{cursor: pointer;}
+.cursor{cursor: pointer;}
 .install-loading, .uninstall-loading {background: url("img/loading.gif") no-repeat scroll center center rgba(0, 0, 0, 0);}
 

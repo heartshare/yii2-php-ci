@@ -99,11 +99,27 @@ class Modules extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function getConfig($configKey = null)
+    {
+        if (!$this->config)
+            return false;
+
+        $config = Json::decode($this->config);
+        if ($configKey === null)
+            return $config;
+
+        if (isset($config[$configKey]))
+            return $config[$configKey];
+
+        return [];
+    }
+
     public function install()
     {
+        //TODO uninstall 和 install 合并冗代码
         $transaction = self::getDb()->beginTransaction();
         try{
-            if ($this->save(false) && Yii::$app->moduleLoader->installModule($this->module)){
+            if ($this->save(false) && Yii::$app->moduleLoader->install($this->module)){
                 Yii::trace($this->module.'安装成功', 'application.ModuleInstall');
                 $transaction->commit();
                 return true;
@@ -120,5 +136,30 @@ class Modules extends \yii\db\ActiveRecord
             Yii::error($e->getMessage(),'application.ModuleInstall');
             return $e->getMessage();
         }
+    }
+
+    public function uninstall()
+    {
+        //TODO uninstall 和 install 合并冗代码
+        $transaction = self::getDb()->beginTransaction();
+        try{
+            if ($this->delete() && Yii::$app->moduleLoader->uninstall($this->module)){
+                Yii::trace($this->module.'卸载成功', 'application.ModuleInstall');
+                $transaction->commit();
+                return true;
+            }else{
+                $transaction->rollBack();
+                return '卸载失败';
+            }
+        }catch (InvalidParamException $e){
+            $transaction->rollBack();
+            Yii::error($e->getMessage(),'application.ModuleInstall');
+            return $e->getMessage();
+        }catch(\Exception $e){
+            $transaction->rollBack();
+            Yii::error($e->getMessage(),'application.ModuleInstall');
+            return $e->getMessage();
+        }
+
     }
 }

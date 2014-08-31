@@ -2,12 +2,13 @@
 
 namespace app\modules\phploc\controllers;
 
-use yii\web\Controller;
+use app\components\web\Controller;
 
 class DefaultController extends Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        sleep(1);
+        return $this->renderAjax('index');
     }
 }

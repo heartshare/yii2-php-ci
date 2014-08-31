@@ -11,7 +11,7 @@ class Controller extends \yii\web\Controller
 
     public $chanel = 'dashboard';
 
-    public $layout = 'dashboard';
+    public $layout = '@app/views/layouts/dashboard';
 
     public function init()
     {
@@ -25,7 +25,7 @@ class Controller extends \yii\web\Controller
         $event->sender->params['leftMenu'] = isset(\Yii::$app->params['systemMenu']['leftMenu'][$chanelArray[0]])?\Yii::$app->params['systemMenu']['leftMenu'][$chanelArray[0]]:array();
 
         //set the pos for the application
-        $event->sender->params['topMenuChanel']  = $chanelArray[0];
+        $event->sender->params['topMenuChanel']  = !empty($chanelArray[0])?$chanelArray[0]:'';
         $event->sender->params['leftMenuChanel'] = $this->chanel;
 
     }

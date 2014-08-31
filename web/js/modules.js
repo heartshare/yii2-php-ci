@@ -12,7 +12,6 @@ yii.modules = (function ($) {
             //disable a status
             $this.children().eq(0).hide();
             $this.addClass(loadingClass);
-
             var url = $(this).attr('data-action');
             var module = $(this).attr('data-module');
             $.ajax({
@@ -37,14 +36,12 @@ yii.modules = (function ($) {
     //模块开关
     var moduleSwitch = function (target){
         var $target = $(target);
-
-
         $target.click(function(){
             var $this = $(this);
             var url = $this.attr('data-action');
             var module = $this.attr('data-module');
             var disabled = $this.attr('data-param');
-
+            var oldContent = $this.html();
             $this.html('').addClass('install-loading');
             $.ajax({
                 type: 'GET',
@@ -56,12 +53,45 @@ yii.modules = (function ($) {
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert('启用失败，请重请点击启用');
+                    $this.html(oldContent);
                 }
             }).always(function(){
                 $this.removeClass('install-loading');
 
             });
         });
+    };
+
+    var moduleUninstall = function (target, c){
+        var $target = $(target);
+        $target.click(function(){
+            var $this = $(this);
+            var url = $this.attr('data-action');
+            var module = $this.attr('data-module');
+            var oldContent = $this.html();
+            var $tr = $('tr[data-key='+ module +']');
+            $this.html('').addClass('uninstall-loading');
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: url,
+                data: {'module': module},
+                success: function (data) {
+                    $tr.children().filter(':last').html('<span class="label label-success">删除成功</span>');
+                    $tr.addClass('success');
+                    $this.unbind('click')
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('卸载失败请重新再试一下次');
+                    $this.html(oldContent);
+                }
+            }).always(function(){
+                $this.removeClass('uninstall-loading');
+            });
+
+        });
+
+        return false;
     };
 
     var _switchStatus = function (target, status){
@@ -83,6 +113,10 @@ yii.modules = (function ($) {
         moduleSwitch : function (target)
         {
             moduleSwitch(target);
+        },
+
+        moduleUninstall : function (target,c){
+            moduleUninstall(target, c);
         }
     }
 })(jQuery)

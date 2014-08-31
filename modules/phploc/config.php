@@ -11,7 +11,14 @@ return [
 
     //module config info
     'config' => [
-        'class' => 'app\modules\phploc\Module',
-    ]
+        'configure' => [
+            'class' => 'app\modules\phploc\Module',
+        ],
+
+        'setting' => [
+            'route' => 'phploc/default/index',
+        ]
+
+    ],
 
 ];

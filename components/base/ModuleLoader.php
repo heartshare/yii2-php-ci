@@ -6,6 +6,7 @@ use app\models\Modules;
 use yii\base\component;
 use yii\base\BootstrapInterface;
 use yii\base\InvalidParamException;
+use yii\helpers\Json;
 
 class ModuleLoader extends Component implements BootstrapInterface
 {
@@ -18,7 +19,10 @@ class ModuleLoader extends Component implements BootstrapInterface
         foreach ($this->_enabledModules as $module){
             //TODO Add config for each modules from DB
             \Yii::trace('Load Module:'.$module['module'],'application.ModuleLoader');
-            $application->setModule($module['module'],json_decode($module['config'],true));
+            $config = Json::decode($module['config']);
+            if(json_last_error() && !isset($config['configure']))
+                throw new InvalidParamException($module['module'].' config is not valid json ');
+            $application->setModule($module['module'],$config['configure']);
         }
     }
 
@@ -113,7 +117,7 @@ class ModuleLoader extends Component implements BootstrapInterface
         return [];
     }
 
-    public function installModule($module)
+    public function install($module)
     {
         $class = $this->getModuleClass($module);
         if(!$class)
@@ -121,7 +125,7 @@ class ModuleLoader extends Component implements BootstrapInterface
         return $class::install();
     }
 
-    public function uninstallModule($module)
+    public function uninstall($module)
     {
         $class = $this->getModuleClass($module);
         if(!$class)
