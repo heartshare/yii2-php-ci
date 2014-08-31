@@ -11,7 +11,7 @@
  Target Server Version : 50619
  File Encoding         : utf-8
 
- Date: 08/24/2014 21:37:15 PM
+ Date: 08/31/2014 22:42:21 PM
 */
 
 SET NAMES utf8;
@@ -36,7 +36,7 @@ CREATE TABLE `phpci_modules` (
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '安装日期',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `phpci_modules_projects`
@@ -62,6 +62,16 @@ CREATE TABLE `phpci_projects` (
   `created_at` int(10) NOT NULL DEFAULT '0',
   `updated_at` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `phpci_setting`
+-- ----------------------------
+DROP TABLE IF EXISTS `phpci_setting`;
+CREATE TABLE `phpci_setting` (
+  `skey` varchar(255) NOT NULL,
+  `svalue` text,
+  PRIMARY KEY (`skey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
