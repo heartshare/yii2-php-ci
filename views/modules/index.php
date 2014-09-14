@@ -10,9 +10,13 @@ use yii\widgets\pjax;
 
 $asset = \app\assets\ModulesAsset::register($this);
 if($status === 'install')
-    $this->registerJs("yii.modules.moduleSwitch('.JModuleSwitch','#pjax-content');yii.modules.moduleUninstall('.JModuleUninstall', '#pjax-content');",
-        View::POS_READY,'yii.modules.moduleSwitch.moduleSwitch_JModuleUninstall');
-Pjax::begin(['options' => ['id' => 'pjax-content'],'timeout' => 10000]);
+    $this->registerJs("
+        yii.modules.moduleSwitch('.JModuleSwitch','#pjax-content');
+        yii.modules.moduleUninstall('.JModuleUninstall', '#pjax-content');",
+        View::POS_READY,
+        'yii.modules.moduleSwitch.moduleSwitch_JModuleUninstall'
+    );
+Pjax::begin(['options' => ['id' => 'pjax-content', 'enableReplaceState' => true], 'timeout' => 10000]);
 ?>
 <!-- Pjax Content Begin-->
 <div id="pjax-content">

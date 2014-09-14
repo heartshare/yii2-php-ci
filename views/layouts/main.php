@@ -38,6 +38,7 @@ AppAsset::register($this);
                     ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'Dashboard', 'url' => ['/dashboard/index'], 'active' => $this->params['topMenuChanel']=='dashboard'],
                     ['label' => 'Setting', 'url' => ['/setting/index'], 'active' => $this->params['topMenuChanel']=='setting'],
+                    ['label' => 'Projects', 'url' => ['/projects/index']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',

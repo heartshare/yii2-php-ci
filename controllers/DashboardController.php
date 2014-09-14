@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\web\Controller;
+use app\models\search\ProjectsSearch;
 
 class DashboardController extends Controller
 {
@@ -11,6 +12,12 @@ class DashboardController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $projectsSearchModel = new ProjectsSearch();
+        $projectsDataProvider = $projectsSearchModel->search(\Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'projectsSearchModel' => $projectsSearchModel,
+            'projectsDataProvider' => $projectsDataProvider
+        ]);
     }
 }
