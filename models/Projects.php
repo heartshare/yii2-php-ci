@@ -113,15 +113,16 @@ class Projects extends \yii\db\ActiveRecord
 
     private function updateModules($changedAttributes)
     {
-        if (!$this->oldAssociateModules && !$this->associateModules)
-            return ;
-        $this->associateModules = $this->associateModules?$this->associateModules:[];
-        $this->oldAssociateModules = $this->oldAssociateModules?$this->oldAssociateModules:[];
+        if (!$this->oldAssociateModules && !$this->associateModules) {
+            return;
+        }
+        $this->associateModules = $this->associateModules ? $this->associateModules : [];
+        $this->oldAssociateModules = $this->oldAssociateModules ? $this->oldAssociateModules : [];
 
         $delete = array_diff($this->oldAssociateModules, $this->associateModules);
         $add = array_diff($this->associateModules, $this->oldAssociateModules);
         if ($delete) {
-            ModulesProjects::deleteAll('project_id = '.$this->id);
+            ModulesProjects::deleteAll('project_id = ' . $this->id);
         }
 
         if ($add) {
@@ -136,7 +137,8 @@ class Projects extends \yii\db\ActiveRecord
             $associateModules [] = [$projectId, $associateModule];
         }
 
-        ModulesProjects::getDb()->createCommand()->batchInsert(ModulesProjects::tableName(),
+        ModulesProjects::getDb()->createCommand()->batchInsert(
+            ModulesProjects::tableName(),
             ['project_id', 'module_id'],
             $associateModules
         )->execute();
@@ -146,9 +148,9 @@ class Projects extends \yii\db\ActiveRecord
     {
         $modules = [];
         if ($this->modules) {
-            foreach ($this->modules as $module)
-                /*@var $module app\models\Modules */
+            foreach ($this->modules as $module) /*@var $module app\models\Modules */ {
                 $modules [$module->$key] = $module->toArray();
+            }
         }
         return $modules;
     }

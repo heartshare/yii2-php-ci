@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\ModulesProjects;
 use Yii;
 use app\models\Projects;
 use app\models\search\ProjectsSearch;
@@ -84,6 +83,7 @@ class ProjectsController extends Controller
     {
         $model = $this->findModel($id);
         $model->oldAssociateModules = $model->associateModules;
+        //$model->setScenario('CreateOrUpdate');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

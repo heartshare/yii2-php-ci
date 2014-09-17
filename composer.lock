@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3f15cf792e60ba20a90dbbb6adf85e7",
+    "hash": "2506d4c2095c87c6ee81b6c502a0a191",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -445,12 +445,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/fDOMDocument.git",
-                "reference": "d08cf070350f884c63fc9078d27893c2ab6c7cef"
+                "reference": "8792b1786353f88b4888867f1408ce0bbcce5278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/fDOMDocument/zipball/d08cf070350f884c63fc9078d27893c2ab6c7cef",
-                "reference": "d08cf070350f884c63fc9078d27893c2ab6c7cef",
+                "url": "https://api.github.com/repos/theseer/fDOMDocument/zipball/8792b1786353f88b4888867f1408ce0bbcce5278",
+                "reference": "8792b1786353f88b4888867f1408ce0bbcce5278",
                 "shasum": ""
             },
             "require": {
@@ -477,7 +477,7 @@
             ],
             "description": "The classes contained within this repository extend the standard DOM to use exceptions at all occasions of errors instead of PHP warnings or notices. They also add various custom methods and shortcuts for convenience and to simplify the usage of DOM.",
             "homepage": "https://github.com/theseer/fDOMDocument",
-            "time": "2014-09-13 10:57:19"
+            "time": "2014-09-13 14:56:40"
         },
         {
             "name": "troy/yii2-image-upload",
@@ -527,12 +527,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "d0f76e416cda07ad98e5ee6d91d132b580c9d051"
+                "reference": "060c277c8da03f755396d94c947381f99184eade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/d0f76e416cda07ad98e5ee6d91d132b580c9d051",
-                "reference": "d0f76e416cda07ad98e5ee6d91d132b580c9d051",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/060c277c8da03f755396d94c947381f99184eade",
+                "reference": "060c277c8da03f755396d94c947381f99184eade",
                 "shasum": ""
             },
             "replace": {
@@ -570,7 +570,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-09-13 02:46:31"
+            "time": "2014-09-13 17:37:29"
         },
         {
             "name": "yiisoft/jquery",
@@ -627,12 +627,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7ec8a9581c05df7735301b07834d2a4c3dbbf526"
+                "reference": "e1e36050ced2a7e6c137b18ac7069334d15d8b04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7ec8a9581c05df7735301b07834d2a4c3dbbf526",
-                "reference": "7ec8a9581c05df7735301b07834d2a4c3dbbf526",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e1e36050ced2a7e6c137b18ac7069334d15d8b04",
+                "reference": "e1e36050ced2a7e6c137b18ac7069334d15d8b04",
                 "shasum": ""
             },
             "require": {
@@ -700,7 +700,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-09-12 20:46:12"
+            "time": "2014-09-14 18:25:11"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -786,6 +786,49 @@
                 "yii2"
             ],
             "time": "2014-09-03 03:17:50"
+        },
+        {
+            "name": "yiisoft/yii2-redis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-redis.git",
+                "reference": "cf373bd91e2b022a98392a76dec395b76ce24765"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-redis/zipball/cf373bd91e2b022a98392a76dec395b76ce24765",
+                "reference": "cf373bd91e2b022a98392a76dec395b76ce24765",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii\\redis\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc"
+                }
+            ],
+            "description": "Redis Cache, Session and ActiveRecord for the Yii framework",
+            "keywords": [
+                "active-record",
+                "cache",
+                "redis",
+                "session",
+                "yii2"
+            ],
+            "time": "2014-08-12 21:21:34"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -956,12 +999,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "78b43923367a764f65a4471248f8eb9645f122f2"
+                "reference": "dc62dc55a4f4d89636797afcdbaae2e6aa5d5ca2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/78b43923367a764f65a4471248f8eb9645f122f2",
-                "reference": "78b43923367a764f65a4471248f8eb9645f122f2",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/dc62dc55a4f4d89636797afcdbaae2e6aa5d5ca2",
+                "reference": "dc62dc55a4f4d89636797afcdbaae2e6aa5d5ca2",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +1034,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2014-09-10 10:15:59"
+            "time": "2014-09-14 18:25:11"
         }
     ],
     "aliases": [

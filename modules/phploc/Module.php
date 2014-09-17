@@ -27,8 +27,9 @@ class Module extends \yii\base\Module
 
     public static function moduleConfig()
     {
-        if (is_file(__DIR__.DIRECTORY_SEPARATOR.'config.php'))
-            return require(__DIR__.DIRECTORY_SEPARATOR.'config.php');
+        if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'config.php')) {
+            return require(__DIR__ . DIRECTORY_SEPARATOR . 'config.php');
+        }
         return [];
     }
 }

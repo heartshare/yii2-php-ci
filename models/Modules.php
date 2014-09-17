@@ -48,7 +48,7 @@ class Modules extends \yii\db\ActiveRecord
             [['url'], 'string', 'max' => 100],
             [['version'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 255],
-            [['config'],'safe']
+            [['config'], 'safe']
         ];
     }
 
@@ -88,12 +88,14 @@ class Modules extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        if(parent::beforeSave($insert)){
-            if(is_array($this->config) || !$this->config )
-                $this->config = $this->config?Json::encode($this->config):Json::encode([]);
+        if (parent::beforeSave($insert)) {
+            if (is_array($this->config) || !$this->config) {
+                $this->config = $this->config ? Json::encode($this->config) : Json::encode([]);
+            }
 
-            if($insert)
+            if ($insert) {
                 $this->disabled = 1;
+            }
             return true;
         }
         return false;
@@ -101,15 +103,18 @@ class Modules extends \yii\db\ActiveRecord
 
     public function getConfig($configKey = null)
     {
-        if (!$this->config)
+        if (!$this->config) {
             return false;
+        }
 
         $config = Json::decode($this->config);
-        if ($configKey === null)
+        if ($configKey === null) {
             return $config;
+        }
 
-        if (isset($config[$configKey]))
+        if (isset($config[$configKey])) {
             return $config[$configKey];
+        }
 
         return [];
     }
@@ -118,22 +123,22 @@ class Modules extends \yii\db\ActiveRecord
     {
         //TODO uninstall 和 install 合并冗代码
         $transaction = self::getDb()->beginTransaction();
-        try{
-            if ($this->save(false) && Yii::$app->moduleLoader->install($this->module)){
-                Yii::trace($this->module.'安装成功', 'application.ModuleInstall');
+        try {
+            if ($this->save(false) && Yii::$app->moduleLoader->install($this->module)) {
+                Yii::trace($this->module . '安装成功', 'application.ModuleInstall');
                 $transaction->commit();
                 return true;
-            }else{
+            } else {
                 $transaction->rollBack();
                 return '安装失败()';
             }
-        }catch (InvalidParamException $e){
+        } catch (InvalidParamException $e) {
             $transaction->rollBack();
-            Yii::error($e->getMessage(),'application.ModuleInstall');
+            Yii::error($e->getMessage(), 'application.ModuleInstall');
             return $e->getMessage();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $transaction->rollBack();
-            Yii::error($e->getMessage(),'application.ModuleInstall');
+            Yii::error($e->getMessage(), 'application.ModuleInstall');
             return $e->getMessage();
         }
     }
@@ -142,22 +147,22 @@ class Modules extends \yii\db\ActiveRecord
     {
         //TODO uninstall 和 install 合并冗代码
         $transaction = self::getDb()->beginTransaction();
-        try{
-            if ($this->delete() && Yii::$app->moduleLoader->uninstall($this->module)){
-                Yii::trace($this->module.'卸载成功', 'application.ModuleInstall');
+        try {
+            if ($this->delete() && Yii::$app->moduleLoader->uninstall($this->module)) {
+                Yii::trace($this->module . '卸载成功', 'application.ModuleInstall');
                 $transaction->commit();
                 return true;
-            }else{
+            } else {
                 $transaction->rollBack();
                 return '卸载失败';
             }
-        }catch (InvalidParamException $e){
+        } catch (InvalidParamException $e) {
             $transaction->rollBack();
-            Yii::error($e->getMessage(),'application.ModuleInstall');
+            Yii::error($e->getMessage(), 'application.ModuleInstall');
             return $e->getMessage();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $transaction->rollBack();
-            Yii::error($e->getMessage(),'application.ModuleInstall');
+            Yii::error($e->getMessage(), 'application.ModuleInstall');
             return $e->getMessage();
         }
 

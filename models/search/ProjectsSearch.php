@@ -43,19 +43,23 @@ class ProjectsSearch extends Projects
     {
         $query = Projects::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id' => $this->id,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'project_name', $this->project_name]);
 

@@ -14,7 +14,7 @@ class ModulesQuery extends ActiveQuery
      */
     public function enabled($stated = true)
     {
-        $this->andWhere(['disabled' => $stated?0:1]);
+        $this->andWhere(['disabled' => $stated ? 0 : 1]);
 
         return $this;
     }

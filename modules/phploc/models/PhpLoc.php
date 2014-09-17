@@ -39,10 +39,11 @@ class PhpLoc extends Model
 
     public function init()
     {
-        if($this->setting = Setting::findOne($this->getSettingKey()))
+        if ($this->setting = Setting::findOne($this->getSettingKey())) {
             $this->load(Json::decode($this->setting->svalue), '');
-        else
+        } else {
             $this->setting = new Setting();
+        }
 
     }
 
@@ -68,7 +69,7 @@ class PhpLoc extends Model
     {
         return [
             'names' => 'names',
-            'namesExclude'=> 'names-exclude',
+            'namesExclude' => 'names-exclude',
             'exclude' => 'exclude',
             'logCsv' => 'log-csv',
             'logXml' => 'log-xml',
@@ -97,14 +98,14 @@ class PhpLoc extends Model
     public function hint($attribute)
     {
         $hints = $this->hints();
-        return isset($hints[$attribute])?$hints[$attribute]:'';
+        return isset($hints[$attribute]) ? $hints[$attribute] : '';
     }
 
     public function save()
     {
-        if(!$this->setting->getIsNewRecord()){
+        if (!$this->setting->getIsNewRecord()) {
             $this->setting->svalue = Json::encode($this->getAttributes());
-        }else{
+        } else {
             $this->setting->skey = $this->getSettingKey();
             $this->setting->svalue = Json::encode($this->getAttributes());
         }
@@ -116,5 +117,4 @@ class PhpLoc extends Model
     {
         return 'php-loc';
     }
-
 }

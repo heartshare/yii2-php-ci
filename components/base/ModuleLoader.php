@@ -16,13 +16,14 @@ class ModuleLoader extends Component implements BootstrapInterface
     {
         //Load Enabled Modules Form storage
         $this->_enabledModules = Modules::find()->enabled()->asArray()->indexBy('module')->all();
-        foreach ($this->_enabledModules as $module){
+        foreach ($this->_enabledModules as $module) {
             //TODO Add config for each modules from DB
-            \Yii::trace('Load Module:'.$module['module'],'application.ModuleLoader');
+            \Yii::trace('Load Module:' . $module['module'], 'application.ModuleLoader');
             $config = Json::decode($module['config']);
-            if(json_last_error() && !isset($config['configure']))
-                throw new InvalidParamException($module['module'].' config is not valid json ');
-            $application->setModule($module['module'],$config['configure']);
+            if (json_last_error() && !isset($config['configure'])) {
+                throw new InvalidParamException($module['module'] . ' config is not valid json ');
+            }
+            $application->setModule($module['module'], $config['configure']);
         }
     }
 
@@ -37,13 +38,14 @@ class ModuleLoader extends Component implements BootstrapInterface
      *
      * @return array
      */
-    public function getModuleDirs() {
+    public function getModuleDirs()
+    {
         $modulePath = $this->getModulePath();
-        $dirs = (array) glob( $modulePath . '*' );
+        $dirs = (array)glob($modulePath . '*');
         $moduleDirs = array();
-        foreach ( $dirs as $dir ) {
-            if ( is_dir( $dir ) ) {
-                $d = basename( $dir );
+        foreach ($dirs as $dir) {
+            if (is_dir($dir)) {
+                $d = basename($dir);
                 $moduleDirs[] = $d;
             }
         }
@@ -61,11 +63,12 @@ class ModuleLoader extends Component implements BootstrapInterface
         $install = $this->installedModules();
         $allModules = $this->getModuleDirs();
 
-        if(!$install)
+        if (!$install) {
             return $this->loadModuleConfig($allModules);
+        }
 
-        foreach ($allModules as $module){
-            if(!isset($install[$module])){
+        foreach ($allModules as $module) {
+            if (!isset($install[$module])) {
                 $unInstall[] = $module;
             }
         }
@@ -82,12 +85,13 @@ class ModuleLoader extends Component implements BootstrapInterface
         return Modules::find()->asArray()->indexBy('module')->all();
     }
 
-    private  function loadModuleConfig($modules)
+    private function loadModuleConfig($modules)
     {
         $return = [];
-        if(!$modules)
+        if (!$modules) {
             return [];
-        foreach ($modules as $module){
+        }
+        foreach ($modules as $module) {
             $return[$module] = $this->getModuleConfig($module);
         }
         return $return;
@@ -95,41 +99,49 @@ class ModuleLoader extends Component implements BootstrapInterface
 
     public function getModulePath()
     {
-        return \Yii::getAlias('@app/modules').DIRECTORY_SEPARATOR;
+        return \Yii::getAlias('@app/modules') . DIRECTORY_SEPARATOR;
     }
 
     public function getModuleClass($module)
     {
-        $class =  "\\app\\modules\\".$module."\\Module";
-        if(class_exists($class))
+        $class = "\\app\\modules\\" . $module . "\\Module";
+        if (class_exists($class)) {
             return $class;
-        \Yii::trace('Load Module Config : The module class not exist:'.$module['module'] .'','application.ModuleLoader');
+        }
+        \Yii::trace(
+            'Load Module Config : The module class not exist:' . $module['module'] . '',
+            'application.ModuleLoader'
+        );
         return false;
     }
 
     public function getModuleConfig($module)
     {
-        if(!$module)
+        if (!$module) {
             return [];
+        }
         $class = $this->getModuleClass($module);
-        if ($class && method_exists($class,'moduleConfig'))
+        if ($class && method_exists($class, 'moduleConfig')) {
             return $class::moduleConfig();
+        }
         return [];
     }
 
     public function install($module)
     {
         $class = $this->getModuleClass($module);
-        if(!$class)
-            throw new InvalidParamException($module."'s Modules.php not exist");
+        if (!$class) {
+            throw new InvalidParamException($module . "'s Modules.php not exist");
+        }
         return $class::install();
     }
 
     public function uninstall($module)
     {
         $class = $this->getModuleClass($module);
-        if(!$class)
-            throw new \HttpInvalidParamException($module."'s Modules.php not exist");
+        if (!$class) {
+            throw new \HttpInvalidParamException($module . "'s Modules.php not exist");
+        }
         return $class::uninstall();
     }
 
